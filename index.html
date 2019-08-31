@@ -59,8 +59,8 @@
         return (
           <div>
             <h2>Notes ( {notes.length} )</h2>
-            <button onClick={()=>create(faker.lorem.sentence())}> Add a Random Note</button>
-            {notes.map(note => <li key={ note.id } onClick={()=>destroy(note)} >{ note.text}</li>)}
+            <button onClick={()=>create({text: faker.lorem.sentence()})}> Add a Random Note</button>
+            {notes.map(note => <div key={ note.id } >{ note.text}<br /> <button onClick={()=>destroy(note)}>Destroy</button></div>)}
 
           </div>
         )
