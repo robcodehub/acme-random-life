@@ -57,8 +57,8 @@
         return (
           <div>
             <h2>Notes ( {notes.length} )</h2>
-
             <button> Add a Random Note</button>
+            {notes.map(note => <li key={ note.id }>{ note.text}</li>)}
 
           </div>
         )
