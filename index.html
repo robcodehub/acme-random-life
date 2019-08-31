@@ -47,17 +47,19 @@
 
 //{notes.map(note => <li key={ note.id }>{ note.text}</li>)}
 
-      const Notes = ({notes, random, destroy}) => {
+      const Notes = ({notes, create, destroy}) => {
         if (notes) {
           console.log("Notes notes=", notes);
         } else {
           console.log("Notes doesn't exist")
         }
 
+        console.log("Faker=", faker.lorem.sentence());
+
         return (
           <div>
             <h2>Notes ( {notes.length} )</h2>
-            <button> Add a Random Note</button>
+            <button onClick={()=>create(faker.lorem.sentence())}> Add a Random Note</button>
             {notes.map(note => <li key={ note.id } onClick={()=>destroy(note)} >{ note.text}</li>)}
 
           </div>
@@ -80,6 +82,13 @@
             error: ''
           };
           this.destroy = this.destroy.bind(this);
+          this.create = this.create.bind(this);
+        }
+
+        async create(note){
+          const created = (await axios.post(`${API}/users/${this.state.user.id}/notes`, note)).data;
+          const notes = [...this.state.notes, created ];
+          this.setState({ notes });
         }
 
 
@@ -100,7 +109,7 @@
 
         render(){
           const { error, user, companies, vacations, followingCompanies, notes } = this.state;
-          const {destroy} = this;
+          const {destroy, create} = this;
 
           console.log('render user=', user)
           console.log('render notes=', notes)
@@ -110,7 +119,7 @@
               <h1>The Acme Random Life</h1>
               Welcome { user.fullName } to your Random Life!
               <div className='error'>{ error }</div>
-              <Notes notes={ notes } destroy={ destroy }/>
+              <Notes notes={ notes } destroy={ destroy } create={create}/>
             </div>
           );
         }
