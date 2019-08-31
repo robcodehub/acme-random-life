@@ -11,6 +11,22 @@
 
     <style>
 
+      body {
+        font-family: helvetica;
+      }
+
+      .destroy-button {
+        width: 100%;
+        height: 2rem;
+        margin: 0.5rem;
+      }
+
+      .random-button {
+        width: 20%;
+        height: 2rem;
+        margin: 0.5rem;
+      }
+
     </style>
 
   </head>
@@ -59,8 +75,8 @@
         return (
           <div>
             <h2>Notes ( {notes.length} )</h2>
-            <button onClick={()=>create({text: faker.lorem.sentence()})}> Add a Random Note</button>
-            {notes.map(note => <div key={ note.id } >{ note.text}<br /> <button onClick={()=>destroy(note)}>Destroy</button></div>)}
+            <button className="random-button" onClick={()=>create({text: faker.lorem.sentence()})}> Add a Random Note</button>
+            {notes.map(note => <div key={ note.id } >{ note.text}<br /> <button className="destroy-button" onClick={()=>destroy(note)}>Destroy</button></div>)}
 
           </div>
         )
